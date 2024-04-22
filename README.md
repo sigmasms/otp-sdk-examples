@@ -1,25 +1,24 @@
 # SIGMA OTP NodeJS SDK
 
 <p align="center">
-  <img  src="https://sigmasms.ru/wp-content/uploads/2023/01/logo.svg">
+  <img src="https://sigmasms.ru/wp-content/uploads/2023/01/logo.svg">
 </p>
 <p align="center">
-	<a href="https://www.npmjs.com/package/cloudipsp-node-js-sdk"><img src="https://img.shields.io/npm/v/cloudipsp-node-js-sdk.svg" alt="raiting" /></a>
-	<a href="https://www.npmjs.com/package/cloudipsp-node-js-sdk"><img src="https://img.shields.io/npm/dt/cloudipsp-node-js-sdk.svg" alt="raiting" /></a>
-	<a href="https://www.npmjs.com/package/cloudipsp-node-js-sdk"><img src="https://img.shields.io/npm/dw/cloudipsp-node-js-sdk.svg" alt="raiting" /></a>
+  <a href="https://www.npmjs.com/package/sigma-otp-sdk"><img src="https://img.shields.io/npm/v/sigma-otp-sdk.svg" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/sigma-otp-sdk"><img src="https://img.shields.io/npm/dt/sigma-otp-sdk.svg" alt="downloads total" /></a>
+  <a href="https://www.npmjs.com/package/sigma-otp-sdk"><img src="https://img.shields.io/npm/dw/sigma-otp-sdk.svg" alt="downloads week" /></a>
 </p>
 
-## OTP service provider
-SDK предоставляет удобный интерфейс к сервису авторизации SIGMA по разным каналам: SMS, Flashcall, голосовая авторизация, Viber, WhatsApp, авторизация по мобильному ID, Callback.
-[Подробнее](https://sigmasms.ru/servis-avtorizatsij/)
-SIGMA OTP SDK для NodeJS облегчает быструю интеграцию нашего готового контроллера с вашим фреймворком, предлагая мгновенное подключение. Помимо быстрой интеграции, SDK также предоставляет гибкие возможности для детальной настройки и подробной самостоятельной интеграции, адаптируясь к уникальным требованиям вашего проекта.
+## Введение
+SDK предоставляет удобный интерфейс к сервису авторизации SIGMA по различным каналам: SMS, Flashcall, голосовая авторизация, Viber, WhatsApp, авторизация по мобильному ID, Callback. [Подробнее о сервисе](https://sigmasms.ru/servis-avtorizatsij/). \
+SIGMA OTP SDK для NodeJS помогает быстро интегрировать функционал в ваше приложение, предлагая гибкие настройки для уникальных требований проекта.
 
 ## Быстрая интеграция
-Импортируйте SDK и используйте предоставленные контроллеры для nestjs, express, fastify, или Bun.js, чтобы мгновенно интегрировать авторизацию в ваше приложение.
+Импортируйте SDK и используйте предоставленные контроллеры для nestjs, express, fastify, или Bun.js.
 
-Пример с Express:
+### Пример с Express:
 
-```
+```javascript
 import express from 'express';
 import { registerExpressRoutes } from '@sigma-otp-sdk/controllers/express.controller';
 
@@ -33,208 +32,84 @@ app.listen(3000, () => {
 });
 
 ```
-Остальные примеры смотрите в папке (Примеры)[./src]
+Все примеры смотрите в папке [examples](./src/examples/README.md).
 
 ## Принцип работы
+1. **Загрузка данных формы**: Frontend запрашивает данные у Backend, который обращается к SDK.
+2. **Инициация сессии авторизации**: Пользователь вводит номер телефона, и система инициирует процесс авторизации.
+3. **Отображение формы авторизации**: Предоставляется способ авторизации, который отображается пользователю.
+4. **Проверка статуса и завершение**: Пользователь завершает авторизацию, а система проверяет статус.\
+[Подробная схема возаимодействия вашего frontend и backend с SDK](./schema.md).
 
-1. **Загрузка данных формы**: пользователь обращается к frontend клиента, который в свою очередь обращается к backend клиента, а тот – к Sigma SDK для получения данных формы.
-
-2. **Инициация сессии авторизации**: пользователь вводит номер телефона и нажимает кнопку "Подтвердить". Frontend отправляет запрос к backend, который обращается к Sigma SDK для инициации процесса авторизации.
-
-3. **Отображение формы авторизации**: backend запрашивает у Sigma SDK способ авторизации и передает его frontend, который отображает пользователю соответствующую форму.
-
-4. **Проверка статуса и завершение**: в зависимости от способа авторизации, пользователь вводит код или выполняет действие, указанное в инструкции. Frontend отправляет данные на backend, который связывается с Sigma SDK для проверки статуса и завершения сессии.
-
-Обработка ошибок включается в процесс в зависимости от типа ошибки, возвращая процесс на соответствующий этап.
-
-```mermaid
-sequenceDiagram
-    participant Пользователь
-    participant Frontend
-    participant Backend
-    participant SigmaSDK
-
-    Пользователь->>Frontend: Открытие формы
-    Frontend->>Backend: Запрос данных формы
-    Backend->>SigmaSDK: Получение данных формы
-    SigmaSDK-->>Backend: Данные формы
-    Backend-->>Frontend: Данные формы
-    Frontend-->>Пользователь: Отображение формы
-    
-    Пользователь->>Frontend: Ввод номера телефона, нажатие "Подтвердить"
-    Frontend->>Backend: Инициация сессии авторизации
-    Backend->>SigmaSDK: Запрос на начало процесса
-    SigmaSDK-->>Backend: Способ авторизации
-    Backend-->>Frontend: Форма авторизации
-    Frontend-->>Пользователь: Отображение формы с кодом/инструкцией
-
-    alt Канал с вводом кода
-        Пользователь->>Frontend: Ввод кода
-        Frontend->>Backend: Проверка кода
-        Backend->>SigmaSDK: Проверка кода
-        SigmaSDK-->>Backend: Результат проверки
-        Backend-->>Frontend: Результат
-        Frontend-->>Пользователь: Результат авторизации
-    else Канал без кода
-        Пользователь->>Frontend: Выполнение инструкции
-        Frontend->>Backend: Проверка статуса
-        Backend->>SigmaSDK: Проверка статуса
-        SigmaSDK-->>Backend: Результат проверки
-        Backend-->>Frontend: Результат
-        Frontend-->>Пользователь: Результат авторизации
-    end
-
-    alt Ошибки требующие начала с пункта 2
-        Backend->>Frontend: NoConnectionException, NoAvailableChannelsException, ...
-        Frontend-->>Пользователь: Сообщение об ошибке, начало с пункта 2
-    else Ошибки требующие начала с пункта 1
-        Backend->>Frontend: FormIsBlockedException, FormNotFoundException
-        Frontend-->>Пользователь: Сообщение об ошибке, начало с пункта 1
-    else ChannelChangedException
-        Backend->>Frontend: ChannelChangedException
-        Frontend-->>Пользователь: Сообщение об ошибке, начало с пункта 3
-    else InvalidCodeException
-        Backend->>Frontend: InvalidCodeException
-        Frontend-->>Пользователь: Повторный ввод кода
-    end
+## Установка и настройка
+Убедитесь, что у вас установлен Node.js версии 12 и выше, и выполните следующую команду для установки SDK:
+```bash
+npm install sigma-otp-sdk
 ```
 
-## Установка
+## Использование SDK
 
-1. Убедитесь, что у вас установлен Node.js 12+.
-2. Установите SDK в проект с помощью npm: `npm install sigma-otp-sdk`
-
-## Использование:
-
-1. **Импорт SDK**:
-   
-   ```typescript
-   import { SigmaOtpSDK } from '@sigma-otp-sdk'
-   ```
-
-2. **Инициализация и отправка кода подтверждения**:
-
-   ```typescript
-   const client = new SigmaOtpSDK({ formId })
-   const { requestId } = await client.send(phone)
-   ```
-
-3. **Получение канала и подтверждение кода**:
-
-   ```typescript
-   const channel = await client.getChannel(requestId)
-   if (channel.channelType === 'code') {
-     // Подтверждение кодом
-     await client.verifyCode(requestId, '1234')
-   } else {
-     // Подтверждение без кода
-     // ...
-   }
-   ```
-
-4. **Проверка статуса запроса и завершение**:
-
-   ```typescript
-   const status = await client.checkStatus(requestId)
-   if (status.success) { 
-     await client.complete(requestId)
-   }
-   ```
-
-#### Обработка ошибок:
-
-На любом шаге могут возникать ошибки, которые следует обработать.
-Для всех этих ошибок нужно начать с пункта 2:
-- NoConnectionException
-- NoAvailableChannelsException
-- CaptchaNotConfirmedException
-- AttempsExpiredException
-- SessionTimeoutException
-- RateLimitException
-
-Для всех этих ошибок нужно начать с пункта 1:
-- FormIsBlockedException
-- FormNotFoundException
-
-При ошибке ChannelChangedException нужно начать с пункта 3\
-При ошибке InvalidCodeException нужно дать пользователю возможность повторно ввести код.
-
-
-В случае возникновения ошибок SDK вызовет подготовленное исключение с типом IError, содержщее тип ошибки и сообщение. Вы можете отобразить сообщение по умолчанию или собственное на основе титпа ошибки.
-
+### Инициализация и отправка кода
 ```typescript
-try {
-  // ваш код
-} catch (e: unknown) {
-  // Известные ошибки SDK, для которых потребуется перезапуск процесса авторизации
-  if (e instanceof NoConnectionException
-    || e instanceof NoAvailableChannelsException
-    ...
-  ) {
-    console.log(`Ошибка: "${e.message}", попробуйте пройти авторизацию еще раз`)
-  }
-  ...
-}
+import { SigmaOtpSDK } from '@sigma-otp-sdk';
 
+const client = new SigmaOtpSDK({ formId: 'your_form_id' });
+const { requestId } = await client.send('phone_number');
 ```
-Больше кода найдете в Примерах
 
-#### Простой пример использования:
-
-Пример использования SDK представлен в коде ниже:
-
+### Получение и подтверждение кода
 ```typescript
-import { SigmaOtpSDK, SigmaOtpSDKEnvironmentEnum } from '@sigma-otp-sdk'
-
-async function main() {
-  const client = new SigmaOtpSDK({ 
-    formId: 'Ваш id формы',
-    environment: SigmaOtpSDKEnvironmentEnum.test
-  })
-  try {
-    const { requestId } = await client.send(phone)
-    const channel = await client.getChannel(requestId)
-    if (channel.channelType === 'code') {
-      // Подтверждение кодом
-      await client.verifyCode(requestId, '1234')
-    } else {
-      // Ожидание подтверждения без кода
-    }
-    // Проверка статуса
-    const status = await client.checkStatus(requestId)
-    if (status.success) { 
-      await client.complete(requestId)
-    }
-  } catch (error) {
-    console.error('Произошла ошибка:', error)
-  }
+const channel = await client.getChannel(requestId);
+if (channel.channelType === 'code') {
+    await client.verifyCode(requestId, '1234');
 }
-
-main()
 ```
 
-#### Дополнительно:
-- [Регистрация контроллера для frontend ](src/sdk/controllers/README.md)
-- Подписка на события
-- [Все примеры](src/sdk/examples)
-- [Схема взаимодействия](#cхема-взаимодействия)
-
-#### Подписка на события:
-Вы можете подписаться на события для запроса и sdk автоматически вызовет ваш коллбек при возниковении события. Примеры использования:
+### Проверка статуса и завершение сессии
+```typescript
+const status = await client.checkStatus(requestId);
+if (status.success) {
+    await client.complete(requestId);
+}
 ```
-  const client = new SigmaOtpSDK({ formId })
-  const { requestId } = await client.send(phone)
 
-  client.onChannelChanged(requestId, (payload: GetChannelResponseDto) => {
-    console.log("Channel changed", requestId,payload)
-  }) 
+### Обработка ошибок
+Информацию по обработке ошибки их полный список смотрите в [руководстве по обработке ошибок](./error-handling.md).
 
-   client.onSuccessConfirmation(requestId, handler: (payload: ISuccessPayload) => {
-    console.log("Channel changed", requestId,payload)
-  }) 
- 
-   client.onError(requestId, handler: (payload: IErrorPayload) => {
-    console.log("Error happend", requestId,payload)
-  })
+### События
+SDK предоставляет возможность подписаться на определенные события в процессе авторизации. Подробнее в [инструкции по работе с событиями](./events.md).
 
-```
+## Дополнительные ресурсы
+- [Поддержка](mailto:user@example.com)
+
+
+### Часто задаваемые вопросы (FAQ)
+
+**Вопрос: Какие функции поддерживает SIGMA OTP SDK?**
+*Ответ: SDK предоставляет интерфейс к сервису авторизации SIGMA через различные каналы, включая SMS, Flashcall, голосовую авторизацию, Viber, WhatsApp, авторизацию по мобильному ID, и Callback.*
+
+**Вопрос: Как начать использовать SIGMA OTP SDK в моем NodeJS проекте?**
+*Ответ: Установите SDK с помощью npm командой `npm install @sigmasms/otp-sdk`, затем импортируйте нужные контроллеры (например, для Express, NestJS или Fastify) и зарегистрируйте маршруты в вашем приложении.*
+
+**Вопрос: Есть ли примеры использования SDK?**
+*Ответ: Да, в папке [Примеры](./src) вы найдете дополнительные примеры интеграции SDK в ваше приложение с использованием различных фреймворков.*
+
+**Вопрос: Каковы требования к версии Node.js для использования SDK?**
+*Ответ: Для использования SIGMA OTP SDK необходим Node.js версии 12 или выше.*
+
+**Вопрос: Как инициировать сессию авторизации с использованием SDK?**
+*Ответ: Инициализация сессии начинается с создания экземпляра SigmaOtpSDK и вызова метода send с номером телефона пользователя. Это приведет к получению requestId, который используется для последующих операций.*
+
+**Вопрос: Как подтвердить код авторизации, полученный пользователем?**
+*Ответ: После получения кода, используйте метод `verifyCode` с requestId и самим кодом для подтверждения. Успешное подтверждение переводит сессию в следующий статус.*
+
+**Вопрос: Как проверить статус сессии авторизации?**
+*Ответ: Вызовите метод `checkStatus` с requestId для получения текущего статуса сессии. Этот статус поможет определить, завершена ли сессия или требуются дополнительные действия.*
+
+**Вопрос: Где найти информацию об обработке ошибок?**
+*Ответ: Информацию и примеры по обработке различных типов ошибок вы найдете в [Руководстве по обработке ошибок](./src/error_handling.md).*
+
+**Вопрос: Какие дополнительные ресурсы доступны для работы с SDK?**
+*Ответ: Вы можете обратиться к документации по регистрации контроллеров для Frontend, подписке на события, полному списку примеров использования SDK, а также к схеме взаимодействия и поддержке в соответствующих разделах документации.*
+
+Этот FAQ предоставляет общую информацию и руководство для новых пользователей SIGMA OTP SDK, помогая быстро решить наиболее распространенные вопросы и проблемы.
