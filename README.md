@@ -4,9 +4,9 @@
   <img src="https://sigmasms.ru/wp-content/uploads/2023/01/logo.svg">
 </p>
 <p align="center">
-  <a href="https://www.npmjs.com/package/sigma-otp-sdk"><img src="https://img.shields.io/npm/v/sigma-otp-sdk.svg" alt="npm version" /></a>
-  <a href="https://www.npmjs.com/package/sigma-otp-sdk"><img src="https://img.shields.io/npm/dt/sigma-otp-sdk.svg" alt="downloads total" /></a>
-  <a href="https://www.npmjs.com/package/sigma-otp-sdk"><img src="https://img.shields.io/npm/dw/sigma-otp-sdk.svg" alt="downloads week" /></a>
+  <a href="https://www.npmjs.com/package/@sigmasms/otp-sdk"><img src="https://img.shields.io/npm/v/@sigmasms/otp-sdk.svg" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/@sigmasms/otp-sdk"><img src="https://img.shields.io/npm/dt/@sigmasms/otp-sdk.svg" alt="downloads total" /></a>
+  <a href="https://www.npmjs.com/package/@sigmasms/otp-sdk"><img src="https://img.shields.io/npm/dw/@sigmasms/otp-sdk.svg" alt="downloads week" /></a>
 </p>
 
 ## Введение
@@ -82,8 +82,8 @@ SDK предоставляет возможность подписаться н�
 ## Дополнительные ресурсы
 - [Поддержка](mailto:user@example.com)
 
-
-### Часто задаваемые вопросы (FAQ)
+<details>
+  <summary>### Часто задаваемые вопросы (FAQ)</summary>
 
 **Вопрос: Какие функции поддерживает SIGMA OTP SDK?**
 *Ответ: SDK предоставляет интерфейс к сервису авторизации SIGMA через различные каналы, включая SMS, Flashcall, голосовую авторизацию, Viber, WhatsApp, авторизацию по мобильному ID, и Callback.*
@@ -113,3 +113,5 @@ SDK предоставляет возможность подписаться н�
 *Ответ: Вы можете обратиться к документации по регистрации контроллеров для Frontend, подписке на события, полному списку примеров использования SDK, а также к схеме взаимодействия и поддержке в соответствующих разделах документации.*
 
 Этот FAQ предоставляет общую информацию и руководство для новых пользователей SIGMA OTP SDK, помогая быстро решить наиболее распространенные вопросы и проблемы.
+
+</details>
