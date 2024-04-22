@@ -1,16 +1,12 @@
 {
-  "name": "@sigma-backend-libs/otp-sdk-examples",
+  "name": "@sigmasms/otp-sdk-examples",
   "version": "1.0.0",
   "description": "Sigma OTP SDK client with examples",
-  "publishConfig": {
-    "@sigma-backend-libs:registry": "https://gitlab-y7r4iuqy1m.sigmasms.ru/api/v4/projects/15/packages/npm/"
-  },
   "main": "./dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "rm -rf ./dist",
     "build": "tsc",
-    "postversion": "cp -r package.json ..",
 
     "examples:use-express-controller": "tsc-watch src/examples/use-express-controller.ts --outDir ./dist --onSuccess \"node dist/examples/use-express-controller.js\"",
     "examples:use-fastify-controller": "tsc-watch src/examples/use-fastify-controller.ts --outDir ./dist --onSuccess \"node dist/examples/use-fastify-controller.js\"",
@@ -30,14 +26,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab-y7r4iuqy1m.sigmasms.ru/sigma/backend/libs/otp-sdk.git"
+    "url": "git+https://github.com/sigmasms/otp-sdk-examples.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab-y7r4iuqy1m.sigmasms.ru/sigma/backend/libs/otp-sdk/-/issues"
+    "url": "https://github.com/sigmasms/otp-sdk-examples/-/issues"
   },
-  "homepage": "https://gitlab-y7r4iuqy1m.sigmasms.ru/sigma/backend/libs/otp-sdk/-/blob/master/README.md",
+  "homepage": "https://github.com/sigmasms/otp-sdk-examples/-/blob/master/README.md",
   "devDependencies": {
     "@golevelup/ts-jest": "^0.3.1",
     "@semantic-release/changelog": "^6.0.1",
