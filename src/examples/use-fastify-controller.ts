@@ -1,12 +1,16 @@
 import fastify from 'fastify'; 
-const _importDynamic = new Function("modulePath", "return import(modulePath)")
 
 import { registerFastifyRoutes } from '@sigmasms/otp-sdk/controllers/fastify.controller';
 import { SigmaOtpSDKEnvironmentEnum } from '@sigmasms/otp-sdk/types/types';
 
+/**
+ * Пример fastify-приложения, в которое добавлен готовый контроллер из SDK
+ */
+
 const start = async () => {
     try {
         const app = fastify();
+        const _importDynamic = new Function("modulePath", "return import(modulePath)")
         const fastifyPrintRoutes = await _importDynamic('fastify-print-routes')
         await app.register(fastifyPrintRoutes as any)
         registerFastifyRoutes(app, {

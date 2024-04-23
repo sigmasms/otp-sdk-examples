@@ -1,6 +1,9 @@
 import * as readline from 'node:readline'
 
-// Для интерактивного взаимодействия с консолью
+/**
+ * Набор утилит для cli-интерфейса, используемого в примерах
+ */
+
 const consoleReader = readline.createInterface({
     input: process.stdin,
     output: process.stdout,

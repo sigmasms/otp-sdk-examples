@@ -3,6 +3,11 @@ import { ChannelChangedException, InvalidCodeException } from '@sigmasms/otp-sdk
 import { SigmaOtpSDKEnvironmentEnum } from '@sigmasms/otp-sdk/types/types'
 import { consoleReadLine, waitKeyPress } from './common/cli'
 
+/**
+ * Пример полного процесса на основе подписки на события.
+ * Дополнительная документация по работе с событиями тут https://github.com/sigmasms/otp-sdk-examples/blob/main/events.md
+ */
+
 const FORM_ID = '4dda52a6-f409-4ce3-a08c-000000000001'
 const RECIPIENT = '+79991234567'
 

@@ -2,6 +2,10 @@ import { SigmaOtpSDK } from '@sigmasms/otp-sdk'
 import { ChannelChangedException } from '@sigmasms/otp-sdk/otp-handler.exception'
 import { SigmaOtpSDKEnvironmentEnum } from '@sigmasms/otp-sdk/types/types'
 
+/**
+ * Простой пример для использования только каналов с бескодовым подтверждением
+ */
+
 const FORM_ID = '4dda52a6-f409-4ce3-a08c-000000000001'
 const RECIPIENT = '+79991234567'
 

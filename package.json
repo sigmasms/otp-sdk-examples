@@ -8,21 +8,20 @@
     "prebuild": "rm -rf ./dist",
     "build": "tsc",
 
-    "examples:use-express-controller": "tsc-watch src/examples/use-express-controller.ts --outDir ./dist --onSuccess \"node dist/examples/use-express-controller.js\"",
-    "examples:use-fastify-controller": "tsc-watch src/examples/use-fastify-controller.ts --outDir ./dist --onSuccess \"node dist/examples/use-fastify-controller.js\"",
+    "examples:use-express-controller": "tsc-watch src/examples/use-express-controller.ts --outDir ./dist --onSuccess \"node dist/use-express-controller.js\"",
+    "examples:use-fastify-controller": "tsc-watch src/examples/use-fastify-controller.ts --outDir ./dist --onSuccess \"node dist/use-fastify-controller.js\"",
     "examples:use-bunjs-controller": "bun src/examples/use-bunjs-controller.ts",
-    "examples:use-nestjs-controller": "tsc-watch -p ./tsconfig-nestjs.json --outDir ./dist --onSuccess \"node dist/examples/use-nestjs-controller.js\"",
+    "examples:use-nestjs-controller": "tsc-watch -p ./tsconfig-nestjs.json --outDir ./dist --onSuccess \"node dist/use-nestjs-controller.js\"",
     "examples:test-controller": "tsc-watch src/tests/test-controller.ts --outDir ./dist --onSuccess \"node dist/test-controller.js\"",
-    
+
     "examples:full": "tsc-watch src/examples/full.ts --outDir ./dist --onSuccess \"node dist/full.js\"",
     "examples:full:js": "node src/examples/full.js",
-    "examples:full-callbacks": "tsc-watch src/examples/full-callbacks.ts --outDir ./dist --onSuccess \"node dist/examples/full-callbacks.js\"",
+    "examples:full-callbacks": "tsc-watch src/examples/full-callbacks.ts --outDir ./dist --onSuccess \"node dist/full-callbacks.js\"",
     "examples:full-callbacks-js": "node src/examples/full-callbacks.js",
 
-    "examples:simple-code": "tsc-watch src/examples/simple-code.ts --outDir ./dist --onSuccess \"node dist/examples/simple-code.js\"",
-    "examples:simple-codeless": "tsc-watch src/examples/simple-codeless.ts --outDir ./dist --onSuccess \"node dist/examples/simple-codeless.js\"",
-    "examples:events": "tsc-watch src/examples/events.ts --outDir ./dist --onSuccess \"node dist/examples/events.js\""
-    
+    "examples:simple-code": "tsc-watch src/examples/simple-code.ts --outDir ./dist --onSuccess \"node dist/simple-code.js\"",
+    "examples:simple-codeless": "tsc-watch src/examples/simple-codeless.ts --outDir ./dist --onSuccess \"node dist/simple-codeless.js\"",
+    "examples:events": "tsc-watch src/examples/events.ts --outDir ./dist --onSuccess \"node dist/events.js\""
   },
   "repository": {
     "type": "git",
@@ -60,7 +59,7 @@
     "@nestjs/common": "^10.3.7",
     "@nestjs/core": "^10.3.7",
     "@nestjs/platform-express": "^10.3.7",
-    "@sigmasms/otp-sdk": "1.0.4",
+    "@sigmasms/otp-sdk": "^1.0.7",
     "express": "^4.19.2",
     "fastify": "^4.26.2",
     "fastify-print-routes": "^3.2.0"
