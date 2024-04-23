@@ -12,7 +12,7 @@ const start = async () => {
         const app = fastify();
         const _importDynamic = new Function("modulePath", "return import(modulePath)")
         const fastifyPrintRoutes = await _importDynamic('fastify-print-routes')
-        await app.register(fastifyPrintRoutes as any)
+        await app.register(fastifyPrintRoutes)
         registerFastifyRoutes(app, {
             environment: SigmaOtpSDKEnvironmentEnum.test,
             prefix: 'sigma-otp-form',
